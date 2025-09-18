@@ -1,0 +1,16 @@
+import pool from "../config/db.js";
+
+export class Caterer {
+  static async getAll() {
+    const [rows] = await pool.query("SELECT * FROM caterer");
+    return rows;
+  }
+
+  static async create({ caterer_name, address, rating, phone_no, email, owner_name }) {
+    await pool.query(
+      `INSERT INTO caterer (caterer_name, address, rating, phone_no, email, owner_name)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [caterer_name, address, rating || 0, phone_no, email, owner_name]
+    );
+  }
+}
