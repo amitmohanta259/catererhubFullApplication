@@ -4,6 +4,7 @@ interface CardProps {
   image: string;
   title: string;
   desc: string;
+  address: string;
   link1: string;
   link2: string;
   btn1: string;
@@ -17,6 +18,9 @@ const Card: React.FC<CardProps> = ({ image, title, desc, link1, link2, btn1, btn
         <div className="card h-100 shadow-sm">
           <img
             src={image}
+            onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = "/src/assets/images/chefs_and_caterers/chef1.jpg";
+              }}
             className="card-img-top"
             alt={title}
             style={{ height: "10rem", objectFit: "cover" }}

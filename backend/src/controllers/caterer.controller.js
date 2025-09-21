@@ -1,9 +1,8 @@
-// backend/src/controllers/caterer.controller.js
-import { Caterer } from "../models/caterer.model.js";
+import { CatererService } from "../services/catererService.js";
 
 export const getAllCaterers = async (req, res) => {
   try {
-    const caterers = await Caterer.getAll();
+    const caterers = await CatererService.getAllCaterers();
     res.json(caterers);
   } catch (err) {
     console.error("Error fetching caterers:", err);
@@ -13,13 +12,10 @@ export const getAllCaterers = async (req, res) => {
 
 export const createCaterer = async (req, res) => {
   try {
-    await Caterer.create(req.body);
-    res.json({ success: true, message: "Caterer created successfully" });
+    const newCaterer = await CatererService.createCaterer(req.body);
+    res.status(201).json(newCaterer);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Server error" });
+    console.error("Error creating caterer:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
-
-
-
